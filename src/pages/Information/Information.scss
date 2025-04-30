@@ -1,0 +1,49 @@
+.information {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    height: 100%;
+    padding-top: 20px;
+
+    &__header {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+        position: sticky;
+        left: 0;
+        padding: 0 20px;
+    }
+
+    &__list {
+        display: flex;
+        grid-gap: 10px;
+    }
+
+    &__user {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        grid-gap: 10px;
+        margin-left: auto;
+    }
+
+    &__name {
+        font-size: 18px;
+    }
+    &__content {
+        padding: 0 20px;
+        overflow: auto;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        padding-bottom: 20px;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .information {
+        &__content, &__header {
+            padding: 0 10px;
+        }
+    }
+}

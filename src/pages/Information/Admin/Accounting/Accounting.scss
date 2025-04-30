@@ -1,0 +1,160 @@
+.accounting {
+    color: var(--primary);
+    
+    &__title {
+        margin-bottom: 20px;
+
+        &--head {
+            margin-bottom: 10px;
+        }
+    }
+
+    &__header {
+        margin-bottom: 30px;
+        grid-gap: 10px;
+        display: flex;
+    }
+
+    &__table {
+        display: grid;
+        grid-template-columns: repeat(4, max-content);
+        width: max-content;
+        grid-gap: 0;
+        border: 1px solid var(--primary);
+        margin-bottom: 20px;
+
+        &--commodity {
+            grid-template-columns: repeat(5, max-content);
+        }
+    }
+
+    &__table-item {
+        padding: 7px 10px;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        grid-gap: 10px;
+        
+
+        &--head {
+            font-weight: 700;
+            color: var(--white);
+            background: var(--primary);
+            justify-content: center;
+        }
+
+        &--amount {
+            justify-content: center;
+        }
+
+        &--few {
+            background: var(--few);
+        }
+
+        &--tiny {
+            background: var(--tiny);
+        }
+    }
+
+    &__button {
+        margin-bottom: 20px;
+        display: flex;
+        font-size: 16px;
+    }
+
+    &__form {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: var(--window-height);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--shadow);
+    }
+
+    &__sub-title {
+        margin-bottom: 10px;
+    }
+
+    &__input {
+        margin-bottom: 10px;
+    }
+
+    &__content {
+        background: var(--white);
+        width: max-content;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        min-width: 300px;
+    }
+
+    &__content-form {
+        background: var(--white);
+        padding: 10px 20px;
+        width: max-content;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        min-width: 300px;
+    }
+
+    &__close {
+        display: flex;
+        margin-left: auto;
+        margin-bottom: 10px;
+        width: 20px;
+        height: 20px;
+        position: relative;
+
+        &::before, &::after {
+            content: "";
+            position: absolute;
+            transform-origin: center;
+            width: 80%;
+            height: 1px;
+            background: var(--primary);
+            display: flex;
+            top: 50%;
+            left: 50%;
+            transition: background .3s ease-in-out;
+        }
+
+        &::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        &:hover {
+            &::before, &::after { 
+                background: var(--white);
+            }
+        }
+    }
+
+
+    &__text {
+        font-size: 16px;
+        margin-bottom: 5px;
+        color: var(--primary);
+    }
+
+    &__radio {
+        margin-bottom: 5px;
+
+        &--last {
+            margin-bottom: 15px;
+        }
+    }
+
+    &__weight {
+        margin-bottom: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+}

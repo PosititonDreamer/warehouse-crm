@@ -1,0 +1,38 @@
+.order-item {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--primary);
+    transition: background 0.3s ease-in-out;
+    
+    &:hover, &:active {
+        background: var(--primary-1);
+        cursor: pointer;
+    }
+
+    &__title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    &__information {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 7px;
+    }
+
+    &__text {
+        font-size: 16px;
+        &:not(:last-child) {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+@media screen and (max-width: 780px) {
+
+    .order-item {
+        transition: unset;
+    }
+    
+}

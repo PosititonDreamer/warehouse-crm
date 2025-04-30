@@ -1,0 +1,10 @@
+.warehosue {
+    &__header {
+        display: flex;
+        grid-gap: 10px;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+}

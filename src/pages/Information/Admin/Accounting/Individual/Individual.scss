@@ -1,0 +1,175 @@
+.accounting-individual {
+
+    &__title {
+        margin-bottom: 20px;
+    }
+
+    &__button {
+        margin-bottom: 20px;
+        display: flex;
+        font-size: 16px;
+    }
+
+    &__form {
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: var(--window-height);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--shadow);
+    }
+
+
+    &__content {
+        background: var(--white);
+        padding: 10px 20px;
+        width: max-content;
+        border-radius: 5px;
+        min-width: 300px;
+        max-height: 100%;
+        overflow: hidden auto;
+    }
+
+    &__close {
+        display: flex;
+        margin-left: auto;
+        margin-bottom: 10px;
+        width: 20px;
+        height: 20px;
+        position: relative;
+
+        &::before, &::after {
+            content: "";
+            position: absolute;
+            transform-origin: center;
+            width: 80%;
+            height: 1px;
+            background: var(--primary);
+            display: flex;
+            top: 50%;
+            left: 50%;
+            transition: background .3s ease-in-out;
+        }
+
+        &::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        &:hover {
+            &::before, &::after { 
+                background: var(--white);
+            }
+        }
+    }
+
+    &__sub-title {
+        margin-bottom: 10px;
+    }
+
+    &__taker {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-gap: 10px;
+        padding: 5px 0;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--primary);
+        }
+    }
+
+    &__checkbox {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        border: 1px solid var(--primary);
+        position: relative;
+        display: flex;
+        overflow: hidden;
+
+        input {
+            display: none;
+
+            &:checked ~ .accounting-individual__marker {
+                opacity: 1;
+            }
+        }
+    }
+
+    &__marker {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--primary);
+        opacity: 0;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--white);
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+        }
+    }
+
+    &__list {
+        margin-bottom: 20px;
+    }
+
+    &__table {
+        display: grid;
+        grid-template-columns: repeat(4, max-content);
+        width: max-content;
+        grid-gap: 0;
+        border: 1px solid var(--primary);
+        margin-bottom: 20px;
+    }
+
+    &__table-item {
+        padding: 7px 10px;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        grid-gap: 10px;
+        
+        &--head {
+            font-weight: 700;
+            color: var(--white);
+            background: var(--primary);
+            justify-content: center;
+        }
+
+        &--amount {
+            justify-content: center;
+        }
+
+        &--list {
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        &--few {
+            background: var(--few);
+        }
+
+        &--tiny {
+            background: var(--tiny);
+        }
+    }
+}

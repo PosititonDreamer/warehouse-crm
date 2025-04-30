@@ -1,0 +1,31 @@
+.u-button {
+    padding: 5px 10px;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    transition: color .3s ease-in-out, background .3s ease-in-out;
+
+    &--active {
+        pointer-events: none;
+    }
+
+    &--yellow {
+        --primary: var(--yellow);
+    }
+
+    &--red {
+        --primary: var(--red);
+    }
+
+    &:hover,
+    &--active {
+        cursor: pointer;
+        background: var(--primary);
+        color: var(--white);
+    }
+
+    &:disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}

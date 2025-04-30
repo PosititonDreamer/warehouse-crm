@@ -1,0 +1,11 @@
+.orders {
+    &__title {
+        margin-bottom: 20px;
+        color: var(--primary);
+    }
+
+    &__header {
+        display: flex;
+        grid-gap: 10px;
+    }
+}

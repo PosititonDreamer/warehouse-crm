@@ -1,0 +1,90 @@
+.warehouse {
+    color: var(--primary);
+    width: max-content;
+
+    &__title {
+        margin-bottom: 20px;
+    }
+
+    &__table {
+        display: grid;
+        grid-template-columns: max-content 1fr 1fr;
+        width: 100%;
+        grid-gap: 0;
+        border: 1px solid var(--primary);
+        overflow: hidden;
+
+        &--weight {
+            grid-template-columns: 1fr max-content;
+        }
+    }
+
+    &__table-item {
+        padding: 7px 10px;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        grid-gap: 10px;
+
+        &--head {
+            font-weight: 700;
+            color: var(--white);
+            background: var(--primary);
+            justify-content: center;
+        }
+
+        &--center {
+            justify-content: center;
+        }
+
+        &--big {
+            position: relative;
+            grid-row: var(--row-start) / var(--row-end);
+
+            &::before {
+                content: '';
+                position: absolute;
+                width: 100vw;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background: var(--primary);
+                opacity: 0;
+                z-index: 100;
+                transition: opacity .3s ease-in-out;
+            }
+
+            &:hover {
+                &::before {
+                    opacity: 0.2;
+                }
+            }
+        }
+
+        &--few {
+            background: var(--few);
+        }
+
+        &--tiny  {
+            background: var(--tiny);
+        }
+    }
+
+    &__content {
+        margin-bottom: 10px;
+        display: grid;
+        grid-gap: 10px;
+    }
+
+    &__button {
+        margin-bottom: 10px;
+        display: flex;  
+    }
+
+    &__track {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+}

@@ -1,0 +1,11 @@
+.admin {
+    &__header {
+        display: flex;
+        grid-gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    &__select-page {
+        width: max-content;
+    }
+}

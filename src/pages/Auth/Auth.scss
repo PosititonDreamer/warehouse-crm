@@ -1,0 +1,34 @@
+.auth {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__title {
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        color: var(--primary);
+        font-weight: bold;
+    }
+
+    &__form {
+        padding: 50px 20px;
+        border: 1px solid var(--primary);
+        border-radius: 10px;
+        max-width: 300px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    &__button {
+        display: block;
+        margin: 0 auto;
+    }
+
+    &__input {
+        margin-bottom: 10px;
+    }
+}
