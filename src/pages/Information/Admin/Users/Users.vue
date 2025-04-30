@@ -4,7 +4,7 @@
 
     import { ref, computed } from 'vue';
     import { users } from '../../../../store/users';
-import { warehouses } from '../../../../store/warehouses';
+    import { warehouses } from '../../../../store/warehouses';
     export default {
         components: {
             UButton, 
@@ -25,12 +25,16 @@ import { warehouses } from '../../../../store/warehouses';
             const description = ref("")
             const id = ref(0)
             const rule = ref("")
-            const warehouse = ref("")
+            const warehouse = ref([
+                {
+                    id: Date.now(),
+                    value: null
+                }
+            ])
 
             const takedTitle = ref(false)
             const takedDescription = ref(false)
             const takedRule = ref(false)
-            const takedWarehouse = ref(false)
 
             const editUser = (user) => {
                 openModal.value = true
@@ -38,13 +42,11 @@ import { warehouses } from '../../../../store/warehouses';
                 title.value = user.title
                 description.value = user.description
                 rule.value = user.rule
-                warehouse.value = user.warehouse_id
-                id.value = user.id
-
+                id.value = user.id 
+                warehouse.value = [...user.warehouses]
                 takedRule.value = false
                 takedTitle.value = false
                 takedDescription.value = false
-                takedWarehouse.value = false
             }
 
             const closeModal = () => {
@@ -53,27 +55,32 @@ import { warehouses } from '../../../../store/warehouses';
                 title.value = ""
                 rule.value = ""
                 description.value = ""
-                warehouse.value = ""
                 id.value = 0
+                warehouse.value = [{
+                    id: Date.now(),
+                    value: null
+                }]
                 takedTitle.value = false
                 takedRule.value = false
-                takedWarehouse.value = false
                 takedDescription.value = false
             }
 
             const saveUser = async () => {
+                if(warehouse.value.find(item => !item.value)) {
+                    alert("Не все склады выбраны");
+                    return
+                }
                 takedTitle.value = true
                 takedDescription.value = true
-                takedWarehouse.value = true
                 takedRule.value = true
                 const checkTitle = !errorTitle.length && title.value.trim().length
                 const checkDescription = !errorDescription.length && description.value.trim().length
                 if(checkTitle && checkDescription && takedRule.value) {
                     if(pageModal.value === "add") {
-                        await newUser({title: title.value, description: description.value, rule: rule.value, warehouse_id: warehouse.value}, closeModal)
+                        await newUser({title: title.value, description: description.value, rule: rule.value, warehouses: warehouse.value}, closeModal)
                         return
                     }
-                    await updateUser({title: title.value, description: description.value, id: id.value, rule: rule.value, warehouse_id: warehouse.value}, closeModal)
+                    await updateUser({title: title.value, description: description.value, id: id.value, rule: rule.value, warehouses: warehouse.value}, closeModal)
                 }
             }
 
@@ -92,7 +99,6 @@ import { warehouses } from '../../../../store/warehouses';
             const getTitle = computed(() => title.value)
             const getDescription = computed(() => description.value)
             const getRule = computed(() => rule.value)
-            const getWarehouse = computed(() => warehouse.value)
 
             const errorTitle = computed(() => {
                 if(!title.value.trim() && takedTitle.value) {
@@ -109,16 +115,7 @@ import { warehouses } from '../../../../store/warehouses';
             })
 
             const errorRule = computed(() => {
-                console.log(!rule.value.trim(), takedRule.value);
-                
                 if(!rule.value.trim() && takedRule.value) {
-                    return "Обязательное поле для заполнения"
-                }
-                return ""
-            })
-
-            const errorWarehouse = computed(() => {
-                if(!warehouse.value.trim() && takedWarehouse.value) {
                     return "Обязательное поле для заполнения"
                 }
                 return ""
@@ -127,6 +124,17 @@ import { warehouses } from '../../../../store/warehouses';
             const copyText = (key) => {
                 navigator.clipboard.writeText(key)
                 alert('Код скопирован!')
+            }
+
+            const addWarehouse = () => {
+                warehouse.value.push({
+                    id: Date.now(),
+                    value: null
+                })
+            }
+
+            const removeWarehouse = (id) => {
+                warehouse.value = warehouse.value.filter(item => item.id != id)
             }
 
             return {
@@ -149,8 +157,7 @@ import { warehouses } from '../../../../store/warehouses';
                 copyText, 
                 getWarehouses,
                 rule, getRule, errorRule, takedRule,
-                warehouse, getWarehouse, errorWarehouse, takedWarehouse,
-                
+                addWarehouse, warehouse, removeWarehouse
             }
         },
     }
@@ -171,11 +178,14 @@ import { warehouses } from '../../../../store/warehouses';
                     <option value="operator">Оператор</option>
                     <option value="courier">Курьер</option>
                 </U-Input>
-                <U-Input class="users__input" name="Выберите склад" v-model="warehouse" @change="takedWarehouse = true" :error="errorWarehouse" :start-value="getWarehouse" view="select">
-                    <option value=""></option>
-                    <option v-for="ware in getWarehouses" :value="ware.id">{{ware.title}}</option>
-                </U-Input>
-                <U-Button class="users__button" type="button">Добавить еще один склад</U-Button>
+                <div class="users__select-warehouse" v-for="item in warehouse" :key="item.id">
+                    <U-Input name="Выберите склад" v-model="item.value" :start-value="item.value" view="select">
+                        <option value=""></option>
+                        <option v-for="ware in getWarehouses.filter(ware => ware.id === item.value || !warehouse.find(wareChild => wareChild.value === ware.id) )" :value="ware.id">{{ware.title}}</option>
+                    </U-Input>
+                    <U-Button class="users__warehouse-delete" type="button" modifier="red" v-if="warehouse.length > 1" @click="removeWarehouse(item.id)">Удалить</U-Button>
+                </div>
+                <U-Button class="users__button" type="button" v-if="getWarehouses.length > warehouse.length" @click="addWarehouse">Добавить еще один склад</U-Button>
                 <U-Input class="users__input" name="Введите описание пользователя" v-model="description" @blur="takedDescription = true" :error="errorDescription" :start-value="getDescription" view="textarea"/>
                 <U-Button class="users__button" type="submit">{{ pageModal === 'add' ? 'Добавить пользователя' : 'Редактировать пользователя' }}</U-Button>
             </div>

@@ -19,10 +19,10 @@ export const users = defineStore('users', () => {
         }
     }
 
-    const newUser = async ({title, description, warehouse_id, rule}, closeFunction) => {
+    const newUser = async ({title, description, warehouses, rule}, closeFunction) => {
         const formData = new FormData()
         formData.append('title', title)
-        formData.append('warehouse_id', warehouse_id)
+        formData.append('warehouses', JSON.stringify(warehouses))
         formData.append('rule', rule)
         formData.append('description', description)
         const data = await fetch(`${window.requst}/api/users.php?method=create`, {
@@ -36,10 +36,10 @@ export const users = defineStore('users', () => {
         }
     }
 
-    const updateUser = async ({title, id, description, warehouse_id, rule}, closeFunction) => {
+    const updateUser = async ({title, id, description, warehouses, rule}, closeFunction) => {
         const formData = new FormData()
         formData.append('id', id)
-        formData.append('warehouse_id', warehouse_id)
+        formData.append('warehouses', JSON.stringify(warehouses))
         formData.append('rule', rule)
         formData.append('title', title)
         formData.append('description', description)
