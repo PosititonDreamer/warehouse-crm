@@ -17,6 +17,10 @@ export const accountingWarehouse = defineStore('accountingWarehouse', () => {
     const getWarehouse = computed(() => warehouse)
 
     const findAccounting = async () => {
+        accounting.value = []
+        accountingWeight.value = []
+        accountingConsumble.value = []
+        accountingIndividual.value = []
         const {getUser} = authorization()
         const data = await fetch(`${window.requst}/api/warehouse/accounting.php?id=${getUser.value.warehouse_id}`, {
             method: 'GET'

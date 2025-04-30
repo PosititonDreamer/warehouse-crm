@@ -6,13 +6,12 @@ export const accounting = defineStore('accounting', () => {
 
     const accounting = ref([])
 
-    const getAccounting = computed(() => {
-        return accounting
-    })
+    const getAccounting = computed(() => accounting)
     
     const {findWeight} = weight()
 
     const findAccounting = async () => {
+        accounting.value = []
         const {getUser} = authorization()
         if(!getUser.value.warehouse_id) {
             setTimeout(() => {

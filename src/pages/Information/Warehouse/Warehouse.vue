@@ -1,21 +1,34 @@
 <script>
-import { computed, ref } from 'vue';
-import UButton from '@/components/_UIComponents/UButton/UButton.vue'
-import Accounting from './Accounting/Accounting.vue';
-import Orders from './Orders/Orders.vue';
-import Payed from './Payed/Payed.vue';
+    import { authorization } from '../../../store/authorization';
+    import { computed, ref } from 'vue';
+    import UButton from '@/components/_UIComponents/UButton/UButton.vue'
+    import Accounting from './Accounting/Accounting.vue';
+    import Orders from './Orders/Orders.vue';
+    import Payed from './Payed/Payed.vue';
 
     export default {
         components: {
             UButton, Accounting, Orders, Payed
         },
         setup() {
+            const { getUser, changeWarehouse } = authorization()
             const page = ref('accounting')
+            const loading = ref(false)
 
             const getPage = computed(() => page.value)
 
+
+            const takeWarehouse = (id) => {
+                loading.value = true
+                changeWarehouse(id)
+
+                setTimeout(() => {
+                    loading.value = false   
+                });
+            }
+
             return {
-                page, getPage
+                page, getPage, getUser, changeWarehouse, loading, takeWarehouse
             }
         },
     }
@@ -23,16 +36,31 @@ import Payed from './Payed/Payed.vue';
 
 <template>
     <div class="warehosue">
-        <div class="warehosue__header">
-            <u-button :class="[{'u-button--active': getPage === 'accounting'}]"  @click="page = 'accounting'">Товарный склад</u-button>
-            <u-button :class="[{'u-button--active': getPage === 'orders'}]"  @click="page = 'orders'">Заказы</u-button>
-            <u-button :class="[{'u-button--active': getPage === 'salary'}]"  @click="page = 'salary'">Зарплата</u-button>
+        <div class="warehosue__header" v-if="getUser.warehouses.length > 1">
+            <u-button v-for="warehouse in getUser.warehouses" :class="[{'u-button--active': getUser.warehouse_id === warehouse.warehouse_id}]"  @click="takeWarehouse(warehouse.warehouse_id)">{{warehouse.title}}</u-button>
         </div>
-        <div class="warehosue__content">
-            <Accounting v-if="getPage === 'accounting'"></Accounting>
-            <Orders v-if="getPage === 'orders'"></Orders>
-            <Payed v-if="getPage === 'salary'"></Payed>
-        </div>
+        <template v-if="getUser.warehouses.find(warehouse => warehouse.warehouse_id === getUser.warehouse_id).rule === 'commodity'">
+            <div class="warehosue__header">
+                <u-button :class="[{'u-button--active': getPage === 'accounting'}]"  @click="page = 'accounting'">Товарный склад</u-button>
+                <u-button :class="[{'u-button--active': getPage === 'orders'}]"  @click="page = 'orders'">Заказы</u-button>
+                <u-button :class="[{'u-button--active': getPage === 'salary'}]"  @click="page = 'salary'">Зарплата</u-button>
+                <u-button :class="[{'u-button--active': getPage === 'supplies'}]"  @click="page = 'supplies'">Поставки</u-button>
+            </div>
+            <div class="warehosue__content">
+                <Accounting v-if="getPage === 'accounting'"></Accounting>
+                <Orders v-if="getPage === 'orders'"></Orders>
+                <Payed v-if="getPage === 'salary'"></Payed>
+            </div>
+        </template>
+        <template v-else-if="getUser.warehouses.find(warehouse => warehouse.warehouse_id === getUser.warehouse_id).rule === 'feedstock'">
+            <div class="warehosue__header">
+                <u-button :class="[{'u-button--active': getPage === 'accounting'}]"  @click="page = 'accounting'">Товарный склад</u-button>
+                <u-button :class="[{'u-button--active': getPage === 'supplies'}]"  @click="page = 'supplies'">Поставки</u-button>
+            </div>
+            <div class="warehosue__content">
+                <Accounting v-if="getPage === 'accounting'"></Accounting>
+            </div>
+        </template>
     </div>
 </template>
 

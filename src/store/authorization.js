@@ -4,9 +4,7 @@ import router from '../router/router';
 export const authorization = defineStore('authorization', () =>  {
     const user = ref(null)
     
-    const getUser = computed(() => {
-        return user
-    })
+    const getUser = computed(() => user)
 
     const login = async (key, auth = false) => {
         const formData = new FormData()
@@ -18,6 +16,9 @@ export const authorization = defineStore('authorization', () =>  {
         const result = await data.json()
         if(result.status) {
             user.value = result.user
+            if(user.value.rule !== 'super'){
+                user.value.warehouse_id = user.value.warehouses[0].warehouse_id
+            }
             localStorage.setItem('user-key', key)
             
             if(auth) {
@@ -35,9 +36,7 @@ export const authorization = defineStore('authorization', () =>  {
     }
 
     const changeWarehouse = (warehouse_id) => {
-        if(user.value.rule === 'super') {
-            user.value.warehouse_id = warehouse_id
-        }
+        user.value.warehouse_id = warehouse_id
     }
 
     return {
