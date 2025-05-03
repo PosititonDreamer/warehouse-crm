@@ -85,7 +85,7 @@
                 product.value = account.product_id
                 amount.value = account.amount
                 id.value = account.id
-                composite.value = !!+account.composite
+                composite.value = !!account.composite
                 
                 if(!!+account.composite) {
                     compositeProducts.value = getComposites.value.filter(item => +item.accounting_id === +account.id)
@@ -122,24 +122,22 @@
                     return
                 }
                 
-
                 if(checkProduct && (checkAmount || composite.value)) {
                     const account = {
                             product_id: product.value,
-                            warehouse_id: warehouse.id,
                             amount: amount.value,
-                            composite: composite.value,
+                            composite: composite.value ? 1 : 0,
                             compositeProducts: compositeProducts.value
                         }
                     if(pageModal.value === "add") {
-                        await newWeight({...account, warehouse_id: warehouse.id}, closeModal)
+                        await newWeight({...account}, closeModal)
                         return
                     }
                     if(pageModal.value === 'editAmount') {
-                        updateAmountWeight({...account, id: id.value, warehouse_id: warehouse.id}, closeModal)
+                        updateAmountWeight({...account, id: id.value}, closeModal)
                         return
                     } 
-                    await updateWeights({...account, id: id.value, warehouse_id: warehouse.id}, closeModal)
+                    await updateWeights({...account, id: id.value, }, closeModal)
                 }
             }
 
