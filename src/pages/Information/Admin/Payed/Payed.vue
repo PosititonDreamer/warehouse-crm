@@ -137,9 +137,9 @@ import { ordersPayed } from '../../../../store/ordersPayed';
             v-if="openModal"
         >
             <div class="payed__content">
+                <UButton class="payed__close" type="button" @click="closeModal" modifier="red"></UButton>
                 <h3 class="payed__sub-title">Установка зарплаты</h3>
-                <button class="payed__close" type="button" @click="closeModal"></button>
-                <UInput 
+                <UInput
                     name="Количество" 
                     v-model="salar" 
                     :start-value="salar"
