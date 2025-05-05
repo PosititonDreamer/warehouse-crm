@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { accounting } from './accounting';
 import { authorization } from './authorization';
+
 export const weight = defineStore('weight', () => {
     const weights = ref([])
     const composites = ref([])
@@ -53,9 +54,10 @@ export const weight = defineStore('weight', () => {
     const updateWeights = async (weight, closeFunction) => {
         const { findAccounting } = accounting()
         const formData = new FormData()
+        const {getUser} = authorization()
+        formData.append('warehouse_id', getUser.value.warehouse_id)
         formData.append('product_id', weight.product_id)
         formData.append('amount', weight.amount)
-        formData.append('warehouse_id', weight.warehouse_id)
         formData.append('id', weight.id)
         formData.append('composite', weight.composite)
         formData.append('compositeProducts', JSON.stringify(weight.compositeProducts))

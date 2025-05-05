@@ -1,0 +1,54 @@
+.supplies {
+  color: var(--primary);
+
+  &__title {
+    margin-bottom: 10px;
+  }
+
+  &__header {
+    display: flex;
+    grid-gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__sub-title {
+    margin-bottom: 3px;
+
+    &--head {
+      margin-bottom: 10px;
+      width: 100%;
+      border-bottom: 1px solid var(--primary);
+      padding-bottom: 5px;
+    }
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    grid-gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
+  }
+
+  &__confirm {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
+  }
+
+  &__confirm-item {
+    display: flex;
+    grid-gap: 10px;
+    align-items: center;
+  }
+
+  &__confirm-button {
+    margin-top: 30px;
+    font-size: 20px;
+  }
+}
