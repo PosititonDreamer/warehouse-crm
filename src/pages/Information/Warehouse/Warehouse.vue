@@ -35,29 +35,29 @@
 </script>
 
 <template>
-    <div class="warehosue">
-        <div class="warehosue__header" v-if="getUser.warehouses.length > 1">
+    <div class="warehouse">
+        <div class="warehouse__header" v-if="getUser.warehouses.length > 1">
             <u-button v-for="warehouse in getUser.warehouses" :class="[{'u-button--active': getUser.warehouse_id === warehouse.warehouse_id}]"  @click="takeWarehouse(warehouse.warehouse_id)">{{warehouse.title}}</u-button>
         </div>
         <template v-if="getUser.warehouses.find(warehouse => warehouse.warehouse_id === getUser.warehouse_id).rule === 'commodity'">
-            <div class="warehosue__header">
+            <div class="warehouse__header">
                 <u-button :class="[{'u-button--active': getPage === 'accounting'}]"  @click="page = 'accounting'">Товарный склад</u-button>
                 <u-button :class="[{'u-button--active': getPage === 'orders'}]"  @click="page = 'orders'">Заказы</u-button>
                 <u-button :class="[{'u-button--active': getPage === 'salary'}]"  @click="page = 'salary'">Зарплата</u-button>
                 <u-button :class="[{'u-button--active': getPage === 'supplies'}]"  @click="page = 'supplies'">Поставки</u-button>
             </div>
-            <div class="warehosue__content">
+            <div class="warehouse__content">
                 <Accounting v-if="getPage === 'accounting'"></Accounting>
                 <Orders v-if="getPage === 'orders'"></Orders>
                 <Payed v-if="getPage === 'salary'"></Payed>
             </div>
         </template>
         <template v-else-if="getUser.warehouses.find(warehouse => warehouse.warehouse_id === getUser.warehouse_id).rule === 'feedstock'">
-            <div class="warehosue__header">
+            <div class="warehouse__header">
                 <u-button :class="[{'u-button--active': getPage === 'accounting'}]"  @click="page = 'accounting'">Товарный склад</u-button>
                 <u-button :class="[{'u-button--active': getPage === 'supplies'}]"  @click="page = 'supplies'">Поставки</u-button>
             </div>
-            <div class="warehosue__content">
+            <div class="warehouse__content">
                 <Accounting v-if="getPage === 'accounting'"></Accounting>
             </div>
         </template>
