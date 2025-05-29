@@ -101,8 +101,8 @@ export default {
     <h2 class="supplies__title">Настройка поставки</h2>
     <div class="supplies__header">
       <UButton v-for="supply in getSupplies" @click="selectSupply(supply.id)" :class="[{'u-button--active': selectSupplies === supply.id}]">
-        {{ findWarehouseById(supply.target)?.title }} {{ supply.type === 'target' ? "=>" : "<=>" }}
-        {{ findWarehouseById(supply.where)?.title }}
+        {{ findWarehouseById(supply.where)?.title }} {{ supply.type === 'target' ? "=>" : "<=>" }}
+        {{ findWarehouseById(supply.target)?.title }}
       </UButton>
     </div>
     <form class="supplies__form" @submit.prevent="updateSupplies" v-if="selectSupplies">

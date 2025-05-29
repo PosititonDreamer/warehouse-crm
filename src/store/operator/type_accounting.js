@@ -96,8 +96,6 @@ export const typeAccounting = defineStore('typeAccounting', () => {
                 type.products.forEach(typeProduct => {
                     if(!length || +typeProduct.count > length) return
                     if(!(length % +typeProduct.count)) {
-                        console.log("tut ", length, typeProduct);
-                        
                         const productAccounting = newOrder.accounting.find(newOrder => newOrder.id === typeProduct.id)
                         if(productAccounting) {
                             productAccounting.amount += (length / +typeProduct.count) * product.amount
@@ -131,26 +129,26 @@ export const typeAccounting = defineStore('typeAccounting', () => {
         })        
         if(error) {
             alert(`Ошибка в каком-то товаре в базе данных, детали в консоли`)
-            closeFunction()
-            return
-        }
+        } else {
         const formData = new FormData()
-        formData.append('accounting', JSON.stringify(newOrder.accounting))
-        formData.append('magnet', newOrder.magnet)
-        formData.append('warehouse_id', newOrder.warehouse_id)
-        formData.append('track', newOrder.track)
-        formData.append('delivery', newOrder.delivery)
-        formData.append('name', newOrder.name)
-        formData.append('address', newOrder.address)
-        formData.append('comment', newOrder.comment)
-        const data = await fetch(`${window.requst}/api/operator/orders.php`, {
-            method: 'POST',
-            body: formData
-        })
-        const result = await data.json()
-        if (result.status) {
-            closeFunction()
+            formData.append('accounting', JSON.stringify(newOrder.accounting))
+            formData.append('magnet', newOrder.magnet)
+            formData.append('warehouse_id', newOrder.warehouse_id)
+            formData.append('track', newOrder.track)
+            formData.append('delivery', newOrder.delivery)
+            formData.append('name', newOrder.name)
+            formData.append('address', newOrder.address)
+            formData.append('comment', newOrder.comment)
+            const data = await fetch(`${window.requst}/api/operator/orders.php`, {
+                method: 'POST',
+                body: formData
+            })
+            const result = await data.json()
+            if (result.status) {
+                closeFunction()
+            }
         }
+        
     }
 
     return {

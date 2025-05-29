@@ -99,7 +99,7 @@ export default {
         </UInput>
         <UInput name="Направление" view="select" v-model="type" :start-value="type">
           <option value="target">Только в выбранный склад</option>
-          <option value="all">Между складов</option>
+          <option value="all" v-if="!target || getWarehouses.find(ware => ware.id === target).rule !== 'commodity'">Между складов</option>
         </UInput>
         <UButton class="supplies-warehouse__button" type="submit">{{ typeModal === "add" ? "Добавить" : "Редактировать" }} связь</UButton>
       </div>
@@ -133,7 +133,6 @@ export default {
         </div>
       </template>
     </div>
-    <h2 v-else class="supplies-warehouse__title">Добавь товары, а то их нет</h2>
   </div>
 </template>
 <style src="./SuppliesWarehouse.scss" lang="scss" scoped/>

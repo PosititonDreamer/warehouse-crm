@@ -10,9 +10,13 @@
             startValue: {
                 type: Number, 
                 default: 0
-            }
+            },
+          multiplier: {
+              type: Number,
+            default: 1
+          }
         },
-        setup({max, startValue}, {emit}) {
+        setup({max, startValue, multiplier}, {emit}) {
             const count = ref(startValue)
 
             const checkValue = () => {
@@ -28,12 +32,12 @@
             }
 
             const increment = () => {
-                count.value++
+                count.value += 1 * multiplier
                 checkValue()
             }
             
             const decrement = () => {
-                count.value--
+                count.value -= 1 * multiplier
                 checkValue()
             }
 
@@ -47,7 +51,7 @@
 <template>
   <div class="counter">
     <button class="counter__button counter__button--minus" @click="decrement"></button>
-    <input class="counter__input" type="number" @input="checkValue" v-model="count" @change="checkValue">
+    <input class="counter__input" type="number" v-model="count" @change="checkValue">
     <button class="counter__button counter__button--plus" @click="increment"></button>
   </div>
 </template>
