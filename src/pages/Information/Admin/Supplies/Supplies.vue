@@ -63,7 +63,6 @@ export default {
 
     watch([getSuppliesProduct, getSupplyConnection], () => {
       if(getSuppliesProduct.value.length, getSupplyConnection.value.length) {
-        console.log(getSuppliesProduct.value)
         selectedSuppliesConfirm.value = getSupplyConnection.value.map(connection => {
           if(connection.type === "accounting") {
             connection.target = getSuppliesProduct.value.target.accounting.find(item => item.id === connection.target.id)

@@ -82,6 +82,15 @@
 
     &__input {
         margin-bottom: 10px;
+
+        &--color {
+            &::v-deep {
+                .u-input__input {
+                    padding: 0;
+                    border: none;
+                }
+            }
+        }
     }
 
     &__content {

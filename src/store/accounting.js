@@ -52,6 +52,7 @@ export const accounting = defineStore('accounting', () => {
         formData.append('measure_unit', account.measure_unit)
         formData.append('article', account.article)
         formData.append('count', account.count)
+        formData.append('color', account.color)
         formData.append('amount', account.amount)
         formData.append('weight_id', account.weight_id)
         const data = await fetch(`${window.requst}/api/accounting.php?method=create`, {
@@ -76,6 +77,7 @@ export const accounting = defineStore('accounting', () => {
         formData.append('count', account.count)
         formData.append('amount', account.amount)
         formData.append('weight_id', account.weight_id)
+        formData.append('color', account.color)
         const data = await fetch(`${window.requst}/api/accounting.php?method=update`, {
             method: 'POST',
             body: formData

@@ -29,8 +29,6 @@ export const payed = defineStore('payed', () => {
     }
 
     const updateSalary = async (salar, closeFunction) => {
-        console.log(salar);
-        
         const formData = new FormData()
         formData.append('id', salar.id)
         formData.append('salary', salar.salary)

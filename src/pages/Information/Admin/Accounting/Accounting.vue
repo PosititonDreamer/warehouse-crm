@@ -52,6 +52,7 @@ export default {
     const id = ref(0)
     const weightId = ref(0)
     const accountWeight = ref(false)
+    const color = ref('#000')
 
     const takedProduct = ref(false)
     const takedMeasureUnit = ref(false)
@@ -118,6 +119,7 @@ export default {
       article.value = ""
       count.value = 0
       amount.value = 0
+      color.value = '#000'
       typeLaterSave.value = "close"
       id.value = 0
 
@@ -168,6 +170,7 @@ export default {
       article.value = account.article
       count.value = account.count
       amount.value = account.amount
+      color.value = account.color
       typeLaterSave.value = "close"
       id.value = account.id
 
@@ -197,6 +200,7 @@ export default {
           article: article.value,
           count: count.value,
           amount: amount.value,
+          color: color.value,
           weight_id: weightId.value
         }
         if (pageModal.value === "add") {
@@ -235,6 +239,7 @@ export default {
       article.value = account.article
       count.value = account.count
       amount.value = account.amount
+      color.value = account.color
       typeLaterSave.value = "close"
       id.value = account.id
 
@@ -306,7 +311,7 @@ export default {
       getWeight,
       changeProduct,
       changePage,
-      getAccounting
+      getAccounting, color
     }
 
   },
@@ -348,6 +353,8 @@ export default {
           <U-Input :error="errorAmount" @change="takedAmount = true" class="accounting__input" name="Введите остаток"
                    type="number" v-model="amount" :start-value="getAmount.toString()" key="product-amount"
                    v-if="!accountWeight"/>
+          <U-Input class="accounting__input accounting__input--color" name="Выберите цвет"
+                   type="color" v-model="color" :start-value="color" key="product-color" :disabled="pageModal === 'editAmount'"/>
           <template v-if="pageModal === 'add'">
             <p class="accounting__text">Выберите действие после добавления: </p>
             <u-radio class="accounting__radio" value="close" name="typeLaterSave" v-model="typeLaterSave"

@@ -1,0 +1,125 @@
+.graphs {
+  color: var(--primary);
+  padding-bottom: 300px;
+
+  &__title {
+    margin-bottom: 10px;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    grid-gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    max-width: 300px;
+  }
+
+  &__table {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    width: max-content;
+    border: 1px solid var(--primary);
+    margin-bottom: 10px;
+
+    &--average {
+      grid-template-columns: 1fr repeat(var(--columns), auto);
+
+      .graphs__name {
+        position: sticky;
+        left: 0;
+        background: var(--white);
+      }
+    }
+  }
+
+  &__name, &__value {
+    padding: 5px 10px;
+    border: 1px solid var(--primary);
+  }
+
+  &__value {
+    text-align: center;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
+  }
+
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    grid-gap: 5px;
+
+    input {
+      display: none;
+
+      &:checked ~ .graphs__marker::before {
+        background: var(--primary);
+      }
+    }
+  }
+
+  &__marker {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--primary);
+
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &::before {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+
+    &::after {
+      width: 10px;
+      height: 10px;
+      background: var(--white);
+      border-radius: 50%;
+      z-index: 2;
+    }
+  }
+
+  &__color {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: var(--color-primary);
+  }
+
+  &__sub-title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  &__products {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  &__chart {
+    margin-bottom: 20px;
+    max-width: calc(100vw - 60px);
+    overflow: auto;
+    padding-bottom: 40px;
+  }
+}
