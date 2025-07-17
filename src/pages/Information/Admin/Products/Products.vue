@@ -4,9 +4,11 @@
 
     import { ref, computed } from 'vue';
     import { products } from '../../../../store/products';
+    import OtherProducts from "@/pages/Information/Admin/Products/OtherProducts/OtherProducts.vue";
     
     export default {
         components: {
+          OtherProducts,
             UButton, 
             UInput
         },
@@ -103,6 +105,7 @@
             </template>
         </div>
         <h2 v-else class="products__title">Добавь товары, а то их нет</h2>
+      <other-products />
     </div>
 </template>
 

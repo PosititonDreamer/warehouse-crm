@@ -1,0 +1,38 @@
+.other-products {
+  color: var(--primary);
+  margin-top: 20px;
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__table {
+    width: 100%;
+    max-width: 1300px;
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1fr auto;
+    grid-gap: 0;
+    border: 1px solid var(--primary);
+  }
+
+  &__table-item {
+    padding: 7px 10px;
+    border: 1px solid var(--primary);
+    display: flex;
+    align-items: center;
+    grid-gap: 10px;
+
+    &--head {
+      font-weight: 700;
+      color: var(--white);
+      background: var(--primary);
+      justify-content: center;
+    }
+  }
+
+  &__button {
+    margin-bottom: 20px;
+    display: flex;
+    font-size: 16px;
+  }
+}

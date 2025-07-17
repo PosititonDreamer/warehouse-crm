@@ -3,10 +3,10 @@ import { ref, computed } from 'vue';
 export const products = defineStore('products', () => {
 
     const products = ref([])
+    const otherProducts = ref([])
 
-    const getProducts = computed(() => {
-        return products
-    })
+    const getProducts = computed(() => products)
+    const getOtherProducts = computed(() => otherProducts)
 
     const findProducts = async () => {
         const data = await fetch(`${window.requst}/api/products.php`, {
@@ -16,6 +16,7 @@ export const products = defineStore('products', () => {
         
         if (result.status) {
             products.value = result.products
+            otherProducts.value = result.productsOthers
         }
     }
 
@@ -46,7 +47,21 @@ export const products = defineStore('products', () => {
             findProducts()
             closeFunction()
         }
+    }
 
+    const updateOtherProducts = async (product) => {
+        const formData = new FormData()
+        formData.append('id', product.id)
+        formData.append('count', product.count)
+        formData.append('product_id', product.product_id)
+        const data = await fetch(`${window.requst}/api/products.php?method=update_other_product`, {
+            method: 'POST',
+            body: formData
+        })
+        const result = await data.json()
+        if (result.status) {
+            findProducts()
+        }
     }
 
     const deleteProduct = async (id) => {
@@ -63,6 +78,6 @@ export const products = defineStore('products', () => {
     }
 
     return {
-        getProducts, findProducts, newProduct, updateProducts, deleteProduct
+        getProducts, getOtherProducts, findProducts, newProduct, updateProducts, deleteProduct, updateOtherProducts
     }
 });

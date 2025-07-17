@@ -72,8 +72,8 @@ export default {
 </script>
 
 <template>
-  <form class="processed-order" @submit.prevent="confirmUpdate">
-    <template v-if="Object.values(getProcessedOrders['Почта России']).length || Object.values(getProcessedOrders.Boxberry).length">
+  <form class="processed-order" @submit.prevent="confirmUpdate" v-if="getProcessedOrders['Почта России'] && getProcessedOrders.Boxberry">
+    <template v-if=" Object.values(getProcessedOrders['Почта России']).length || Object.values(getProcessedOrders.Boxberry).length">
       <h2 class="processed-order__title">Обработка заказов</h2>
       <div class="processed-order__list" v-if="Object.values(getProcessedOrders['Почта России']).length + Object.values(getProcessedOrders.Boxberry).length === Object.values(ordersUpdate).length ">
         <div class="processed-order__item processed-order__item--mail" v-for="order in getProcessedOrders['Почта России']">
