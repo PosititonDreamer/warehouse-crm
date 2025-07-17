@@ -7,6 +7,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import OrdersPayed from '../../../../components/OrdersPayed/OrdersPayed.vue';
 import { ordersPayed } from '../../../../store/ordersPayed';
 import { authorization } from '../../../../store/authorization';
+import {penalties} from "@/store/penalty.js";
 
     export default {
         components: {
@@ -26,6 +27,7 @@ import { authorization } from '../../../../store/authorization';
             const { getMinDate } = payed()
             const {getUser} = authorization()
             const {findPayedOrders, getOrdersPayed, resetOrdersPayed} = ordersPayed()
+            const {findPenalties, getPenalties} = penalties()
             const date = ref([])
 
 
@@ -54,13 +56,13 @@ import { authorization } from '../../../../store/authorization';
                 }
 
                 findPayedOrders({min_date: date.value[0], max_date: date.value[1], user_id: getUser.value.id})
+                findPenalties({min_date: date.value[0], max_date: date.value[1], user_id: getUser.value.id})
             }   
 
 
 
             return {
-                getMinDate, saveFilter, getOrdersPayed, getUser,
-                
+                getMinDate, saveFilter, getOrdersPayed, getUser, getPenalties,
                 date, format
             }
         }
@@ -86,7 +88,7 @@ import { authorization } from '../../../../store/authorization';
             <UButton @click="saveFilter">Найти данные</UButton>
         </div>
         <template v-if="getOrdersPayed">
-            <OrdersPayed :ordersChoice="ordersChoice" v-model="ordersChoice" @changeOrder="changeOrder" :salary="+getUser.salary"/>
+            <OrdersPayed :salary="+getUser.salary"/>
         </template>
     </div>
 </template>

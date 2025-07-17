@@ -71,11 +71,10 @@
     &__content {
         background: var(--white);
         padding: 10px 20px;
-        width: max-content;
         border-radius: 5px;
-        min-width: 300px;
         max-height: 100%;
         overflow: hidden auto;
+        position: relative;
     }
 
     &__close {
@@ -84,7 +83,9 @@
         margin-bottom: 10px;
         width: 20px;
         height: 20px;
-        position: relative;
+        position: absolute;
+        right: 10px;
+        left: 10px;
 
         &::before, &::after {
             content: "";
@@ -118,13 +119,22 @@
         display: flex;
         align-items: center;
         grid-gap: 10px;
+        width: max-content;
     }
 
     &__input {
-        width: max-content;
+        width: 100%;
     }
 
     &__payment-button {
         margin: 10px 0 30px;
+    }
+
+    &__sub-title {
+        margin-bottom: 10px;
+    }
+
+    &__find-button {
+        white-space: nowrap;
     }
 }

@@ -1,0 +1,32 @@
+html {
+  overflow: hidden;
+}
+
+.loader {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: var(--primary);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    animation: loading 2s linear infinite;
+  }
+}
+
+@keyframes loading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

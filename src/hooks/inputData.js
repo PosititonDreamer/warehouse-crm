@@ -8,7 +8,7 @@ const inputData = (startValue, type, min = 0) => {
         let check = false
 
         if(type === 'number') {
-            check = value.value < min
+            check = value.value < min || !value.value
         }
 
         if(type === 'string') {

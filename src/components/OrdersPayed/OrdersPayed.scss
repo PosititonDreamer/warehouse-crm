@@ -14,6 +14,14 @@
 
         &--admin {
             grid-template-columns: auto 1fr auto auto;
+
+            &.orders-payed__table--penalties {
+                grid-template-columns: auto 1fr auto;
+            }
+        }
+
+        &--penalties {
+            grid-template-columns: 1fr auto ;
         }
     }
 

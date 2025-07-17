@@ -109,7 +109,7 @@ import getOrder from '../../../../hooks/getOrder';
 
                                 if(presentName === "Красный мухомор, 25 грамм!") {
                                     orderWarehouse.products.push({
-                                        title: "Крупные шляпки красного мухомора",
+                                        title: "Отборные шляпки красного",
                                         amount: 1,
                                         measure_unit: "грамм",
                                         count: 25,
