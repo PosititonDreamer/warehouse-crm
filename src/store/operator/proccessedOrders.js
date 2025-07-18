@@ -17,7 +17,6 @@ export const processedOrders = defineStore('processedOrders', () => {
     }
 
     const updateProcessedOrders = async (data) => {
-        console.log(data)
         const formData = new FormData()
         formData.append('data', JSON.stringify(data))
         const res = await fetch(`${window.requst}/api/operator/update_orders.php`, {

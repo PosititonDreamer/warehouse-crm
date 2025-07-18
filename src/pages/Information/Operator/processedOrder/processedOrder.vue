@@ -12,41 +12,24 @@ export default {
   },
   setup() {
     const {getProcessedOrders, updateProcessedOrders} = processedOrders()
-    const ordersUpdate = ref({});
+    const ordersUpdate = ref([]);
 
     watch([getProcessedOrders], () => {
-      if(getProcessedOrders) {
-        Object.values(getProcessedOrders.value['Почта России']).forEach(order => {
-          ordersUpdate.value[order.id] = ({
-            id: order.id,
-            type: order.delivery,
-            track: ''
-          })
+      getProcessedOrders.value.forEach(order => {
+        ordersUpdate.value.push({
+          id: order.id,
+          type: order.delivery,
+          track: ''
         })
-        Object.values(getProcessedOrders.value.Boxberry).forEach(order => {
-          ordersUpdate.value[order.id] = ({
-            id: order.id,
-            type: order.delivery,
-            delivery: '',
-            address: '',
-            track: ''
-          })
-        })
-      }
+      })
     })
 
     const confirmUpdate = () => {
       let check = true
 
       Object.values(ordersUpdate.value).forEach((order) => {
-        if(order.type === 'Boxberry') {
-          if(!order.address.trim().length || !order.track.trim().length || !order.delivery.trim().length) {
-            check = false
-          }
-        } else {
-          if(!order.track.trim().length) {
-            check = false
-          }
+        if(!order.track.trim().length) {
+          check = false
         }
       })
 
@@ -72,31 +55,17 @@ export default {
 </script>
 
 <template>
-  <form class="processed-order" @submit.prevent="confirmUpdate" v-if="getProcessedOrders['Почта России'] && getProcessedOrders.Boxberry">
-    <template v-if=" Object.values(getProcessedOrders['Почта России']).length || Object.values(getProcessedOrders.Boxberry).length">
+  <form class="processed-order" @submit.prevent="confirmUpdate" v-if="getProcessedOrders">
+    <template v-if="getProcessedOrders.length">
       <h2 class="processed-order__title">Обработка заказов</h2>
-      <div class="processed-order__list" v-if="Object.values(getProcessedOrders['Почта России']).length + Object.values(getProcessedOrders.Boxberry).length === Object.values(ordersUpdate).length ">
-        <div class="processed-order__item processed-order__item--mail" v-for="order in getProcessedOrders['Почта России']">
+      <div class="processed-order__list" v-if="getProcessedOrders.length === ordersUpdate.length ">
+        <div class="processed-order__item" v-for="order in getProcessedOrders">
           <h3 class="processed-order__sub-title">Почта России</h3>
           <p class="processed-order__name">
             <span @click="copyText(order.number)">{{order.number}}</span>
             <span @click="copyText(order.name)">{{ order.name }}</span>
           </p>
-          <UInput name="Трек-номер" v-model="ordersUpdate[order.id].track" />
-        </div>
-        <div class="processed-order__item" v-for="order in getProcessedOrders.Boxberry">
-          <h3 class="processed-order__sub-title">BoxBerry</h3>
-          <p class="processed-order__name">
-            <span @click="copyText(order.number)">{{order.number}}</span>
-            <span @click="copyText(order.name)">{{ order.name }}</span>
-          </p>
-          <UInput name="Трек-номер" v-model="ordersUpdate[order.id].track" />
-          <UInput name="Адрес" v-model="ordersUpdate[order.id].address" />
-          <UInput name="Служба доставки" v-model="ordersUpdate[order.id].delivery" view="select">
-            <option value="CDEK">CDEK</option>
-            <option value="Почта России">Почта России</option>
-          </UInput>
-          <p class="processed-order__text" v-html="order.message" />
+          <UInput name="Трек-номер" v-model="ordersUpdate.find(updateOrder => updateOrder.id === order.id).track" />
         </div>
       </div>
       <UButton class="processed-order__submit" type="submit">Сохранить изменения</UButton>
