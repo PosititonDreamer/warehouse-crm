@@ -10,9 +10,11 @@ import Accounting from './Accounting/Accounting.vue';
 import UInput from '../../../components/_UIComponents/UInput/UInput.vue';
 import Payed from './Payed/Payed.vue';
 import Products from './Products/Products.vue'
+import Kits from "@/pages/Information/Admin/Kits/Kits.vue";
 
     export default {
         components: {
+          Kits,
             Products, UButton, Users, Warehouses, Accounting, Orders , Graphs, UInput, Payed, Supplies
         },
         setup() {
@@ -38,6 +40,7 @@ import Products from './Products/Products.vue'
             <u-button :class="[{'u-button--active': getPage === 'users'}]"  @click="page = 'users'">Пользователи</u-button>
             <u-button :class="[{'u-button--active': getPage === 'warehouses'}]"  @click="page = 'warehouses'">Склады</u-button>
             <u-button :class="[{'u-button--active': getPage === 'accounting'}]"  @click="page = 'accounting'">Товары</u-button>
+            <u-button :class="[{'u-button--active': getPage === 'kits'}]"  @click="page = 'kits'">Наборы</u-button>
             <u-button :class="[{'u-button--active': getPage === 'supplies'}]"  @click="page = 'supplies'">Связь товаров для поставки</u-button>
             <u-button :class="[{'u-button--active': getPage === 'orders'}]"  @click="page = 'orders'">Заказы</u-button>
             <u-button :class="[{'u-button--active': getPage === 'payed'}]"  @click="page = 'payed'">Зарплата</u-button>
@@ -48,6 +51,7 @@ import Products from './Products/Products.vue'
             <Users v-if="getPage === 'users'"></Users>
             <Warehouses v-if="getPage === 'warehouses'"></Warehouses>
             <Accounting v-if="getPage === 'accounting'"></Accounting>
+            <Kits v-if="getPage === 'kits'"></Kits>
             <Supplies v-if="getPage === 'supplies'"> </Supplies>
             <Orders v-if="getPage === 'orders'"></Orders>
             <Payed v-if="getPage === 'payed'"></Payed>
